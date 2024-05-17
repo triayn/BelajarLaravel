@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,8 @@ Route::get('/pengguna/{id}', function ($id){
 Route::get('cari/{cari}', function ($cari){
     return $cari;
 })->where('cari', '.*');
+
+Route::get('/home', [HomeController::class, 'index']);
 
 // Route::get($uri, $collback);        // Digunakan untuk mendapatkan informasi atau halaman
 // Route::post($uri, $collback);       //  Digunakan untuk melakukan proses input data ke database
