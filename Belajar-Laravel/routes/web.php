@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,55 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('coba', function(){
-    return 'Halo, ini adalah rute coba';
-});
-Route::get('/', function () {
-    return view('welcome');
-});
-// Route::redirect('/coba', '/welcome');
-Route::view('/welcome', 'welcome');
-Route::get('/user/{nama?}', function ($nama = null){
-    return $nama;
-})->where(["nama" => "[A-Za-z]+"]); 
-Route::get('/user/{id_user}', function ($id_user) {
-    return "User ID : $id_user";
-})->where(["id_user" => "[0-9]+"]);
-Route::get('/pengguna/{id}', function ($id){
-    return  "Pengguna dengan id ". $id ;
-});
-Route::get('cari/{cari}', function ($cari){
-    return $cari;
-})->where('cari', '.*');
 
-// Route::get($uri, $collback);        // Digunakan untuk mendapatkan informasi atau halaman
-// Route::post($uri, $collback);       //  Digunakan untuk melakukan proses input data ke database
-// Route::put($uri, $collback);        //  Digunakan untuk memperbarui data yang sudah ada di database
-// Route::patch($uri, $collback);      // Sama seperti put, tapi hanya perbarui field yang telah dim
-// Route::delete($uri ,$collback);     // Menghapus data dari database
-// Route::options($uri, $collback);    //  Menampilkan opsi HTTP yang didukung oleh resource tersebut.
-
-Route::get('/pengguna/{id}/profile', function ($id) {
-    return "Profile pengguna dengan id {$id} ";
-})->name('profile');
-
-// Route::middleware(['auth', 'verified'])->group(function () {
-
-//     Route::namespace('User')->group(function () {
-//         Route::get('/user/{nama?}', [UserController::class, 'showName'])
-//              ->where(["nama" => "[A-Za-z]+"]);
-
-//         Route::get('/user/{id_user}', [UserController::class, 'showId'])
-//              ->where(["id_user" => "[0-9]+"]);
-//     });
+// Route::get('/', function () {
+//     return view('welcome');
 // });
+Route::get('/', \App\Livewire\Home::class)->name('home');
+Route::get('users', \App\Livewire\Users\Index::class)->name('users');
+Route::get('users/create', \App\Livewire\Users\Create::class)->name('users.create');
+// Route::put('users/edit/{id}', \App\Http\Livewire\Users\Edit::class)->name('users.edit');
+Route::get('users/{user}', \App\Livewire\Users\Show::class)->name('users.show');
 
-// Route::domain('user.domain.com')->group(function () {
-//     Route::get('/', [UserController::class, 'index']);
-//     Route::get('/profile', [UserController::class, 'profile']);
-// });
-
-// Route::prefix('user')->group(function () {
-//     Route::get('/', [UserController::class, 'index'])->name('user.index');
-//     Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
-// });
+// Route::livewire('/', 'post.index')->name('post.index');
+// Route::livewire('/create', 'post.create')->name('post.create');
+// Route::livewire('users/edit/{id}', 'users.edit')->name('users.edit');
